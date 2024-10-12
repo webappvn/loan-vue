@@ -28,8 +28,15 @@
             <td class="px-6 py-4">{{ item.price }}</td>
             <td class="px-6 py-4">{{ item.type }}</td>
             <td class="flex items-center px-6 py-4">
-              <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
-              <a href="#" class="font-medium text-red-600 hover:underline ms-3">Remove</a>
+              <button class="font-medium text-blue-600 hover:underline" @click="handleEdit(item)">
+                Edit
+              </button>
+              <button
+                class="font-medium text-red-600 hover:underline ms-3"
+                @click="handleDelete(item)"
+              >
+                Remove
+              </button>
             </td>
           </tr>
         </tbody>
@@ -42,8 +49,22 @@
 </template>
 
 <script>
-import { getProduct } from '@/services/productService'
+import { deleteProduct, getProduct } from '@/services/productService'
 import PaginationPage from '../navigation/PaginationPage.vue'
+import router from '@/router'
+export function debounce(func, wait) {
+  let timeout
+
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}
 export default {
   components: {
     PaginationPage
@@ -100,13 +121,65 @@ export default {
       products: []
     }
   },
+  // computed: {
+  //   currentQuery() {
+  //     return {
+  //       name: this.$route.query.name,
+  //       type: this.$route.query.type
+  //     }
+  //   }
+  // },
+  watch: {
+    '$route.query': {
+      handler: function (search) {
+        this.getData({
+          page: 0,
+          size: 10,
+          data: {
+            name: this.$route.query.name,
+            type: this.$route.query.type
+          }
+        })
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  // created() {
+  //   this.getData = debounce(this.getDataRoot, 500)
+  // },
   beforeMount() {
-    this.getData({ page: 0, size: 20 })
+    this.getData({
+      page: 0,
+      size: 10,
+      data: {
+        name: this.$route.query.name,
+        type: this.$route.query.type
+      }
+    })
   },
   methods: {
-    async getData({ page, size }) {
-      const { data } = await getProduct({ page, size })
+    async getData(passData) {
+      const { data } = await getProduct(passData)
       this.products = data.data.items
+    },
+    async handleDelete(item) {
+      try {
+        deleteProduct(item.id)
+        this.getData({
+          page: 0,
+          size: 10,
+          data: {
+            name: this.$route.query.name,
+            type: this.$route.query.type
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    handleEdit(item) {
+      router.push({ path: '/product', query: { id: `${item.id}` } })
     }
   }
 }

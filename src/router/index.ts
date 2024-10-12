@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import ForgotPassWord from '@/views/ForgotPassWord.vue'
+import ProductItem from '@/components/products/ProductItem.vue'
 import { getToken } from '@/helper/utils'
 import { useUserStore } from '@/stores/user'
 const routes = [
@@ -24,22 +25,23 @@ const routes = [
     component: ForgotPassWord
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/product',
+    name: 'product',
+    component: ProductItem
     // route level code-splitting
     // this generates a separate chunk (About.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AboutView.vue')
+    // component: () => import('../views/AboutView.vue')
   }
 ]
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const token = getToken()
   const userStore = useUserStore()
-  console.log('to: ', to)
+  // console.log('to: ', to)
   // login page
   if (to.name === 'login') {
     if (token) {

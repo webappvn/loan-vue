@@ -11,3 +11,7 @@ export const removeToken = () => {
 export const getToken = () => {
   return sessionStorage.getItem(TokenKey)
 }
+
+export const isEmptyObj = (obj: any) => {
+  return Object.keys(obj).length === 0
+}

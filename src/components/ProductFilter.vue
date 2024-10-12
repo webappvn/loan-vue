@@ -29,7 +29,9 @@
     >
       Reset
     </button>
-    <button class="ml-auto border px-5 rounded-lg bg-blue-500 text-white py-2">Add product</button>
+    <button class="ml-auto border px-5 rounded-lg bg-blue-500 text-white py-2" @click="handleAdd">
+      Add product
+    </button>
   </div>
 </template>
 <script>
@@ -38,7 +40,7 @@ import router from '@/router'
 export default {
   data() {
     return {
-      nameFill: router.currentRoute.value.query.name || '',
+      nameFill: this.$route.query.name || '',
       typeFill: router.currentRoute.value.query.type || ''
     }
   },
@@ -62,12 +64,15 @@ export default {
       })
     },
     resetFill() {
-      ;(this.nameFill = ''),
-        (this.typeFill = ''),
-        router.replace({
-          path: '/',
-          query: {}
-        })
+      this.nameFill = ''
+      this.typeFill = ''
+      router.replace({
+        path: '/',
+        query: {}
+      })
+    },
+    handleAdd() {
+      router.push({ path: '/product' })
     }
   }
 }

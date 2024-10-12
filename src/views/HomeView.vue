@@ -1,13 +1,10 @@
 <template>
-  <main>
-    <div class="flex flex-row">
-      <SlideBar />
-      <div class="bg-gray-100 p-8 flex-auto">
-        <div class="bg-white h-full p-5">
-          <h1 class="text-3xl font-semibold text-center mb-6">Product List</h1>
-          <ProductFilter />
-          <ProductListings />
-        </div>
+  <main class="flex-grow">
+    <div class="bg-gray-100 p-8 flex-auto h-screen">
+      <div class="bg-white h-full p-5">
+        <h1 class="text-3xl font-semibold text-center mb-6">Product List</h1>
+        <ProductFilter />
+        <ProductListings />
       </div>
     </div>
   </main>
