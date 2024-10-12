@@ -41,6 +41,9 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const token = getToken()
   const userStore = useUserStore()
+  next()
+  return
+
   // console.log('to: ', to)
   // login page
   if (to.name === 'login') {

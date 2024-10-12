@@ -99,7 +99,7 @@
       :is-close="closeNotification"
       @on-close-loan="closeNotification"
     />
-    <!-- <NotificationPopup
+    <NotificationPopup
       v-if="notification"
       v-model="notification"
       v-model:is-open="notification"
@@ -107,15 +107,15 @@
       :close-notification="closeNotification"
       @on-close="closeNotification"
     >
-      <template #title="slotProps">{{ slotProps.childName }} Thông báo! </template>
+      <template #title="props">{{ props.loanHoat }} Thông báo! </template>
       <span>{{ notificationContent }}</span>
-    </NotificationPopup> -->
+    </NotificationPopup>
   </div>
 </template>
 <script lang="ts" setup>
 import type { ProductInterface } from '@/interface/interface'
-import NotificationPopup from '../share/NotificationPopup.vue'
-import NotiPopupDemo from '../share/NotiPopupDemo.vue'
+// import NotificationPopup from '../share/Not/ificationPopup.vue'
+// import NotiPopupDemo from '../share/NotiPopupDemo.vue'
 import { createProduct, deleteProduct, getProduct, updateProduct } from '@/services/productService'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useRoute } from 'vue-router'

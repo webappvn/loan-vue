@@ -1,0 +1,34 @@
+- slot
+  - dùng trong notification comonent
+    ++ default slot
+    ++ định danh slot theo name="header"
+    ++ dùng bằng cách khai báo #header
+  - scope slot:
+    ++ truyền props cho <slot></slot> từ component chưa slot
+    ++ dùng bằng cách gán name cho props sẽ nhận: #header="props"
+- props
+  ++ truyển dữ liệu từ cha sang con: 1 chiều, one way binding
+  ++ two way binding:
+  ++ v-model
+  ++ v-model mặc định hỗ trợ cho những HTML element
+  ++ input
+  ++ select
+  ++ button ?
+  ++ ...
+  => form elements
+  ++ v-model ====> component ??
+  ++ MyInput .... <input/>.....
+  ++ demo : NotiPopupDemo
+
+- data
+  ++ dữ liệu động của component - biến trạng thái - state
+  ++ function => data object
+  =? khai báo component => khuôn mẫu để tạo ra các component instant
+  ++ nếu data = object => all coomponent instant dùng chung 1 object
+  ++ nếu data = function return object => mỗi component có 1 object data khác nhau
+- hook
+  ++
+- pinia
+- router
+- api
+- multi lang
